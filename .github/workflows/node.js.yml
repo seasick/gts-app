@@ -12,6 +12,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    # Update references
+    - name: Git Sumbodule Update
+      run: |
+        git pull --recurse-submodules
+        git submodule update --remote --recursive
 
     - name: Use Node.js 16.x
       uses: actions/setup-node@v2
