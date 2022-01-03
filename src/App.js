@@ -5,8 +5,9 @@ import {useEffect, useState} from 'react';
 function App() {
   const [data, setData] = useState(null);
   const [station, setStation] = useState(11036);
-  const [useWeights, setUseWeights] = useState(false);
   const [stations, setStations] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [useWeights, setUseWeights] = useState(false);
 
   useEffect(() => {
     fetch('/data/aggregated.json')
