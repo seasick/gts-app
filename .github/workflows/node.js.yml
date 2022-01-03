@@ -19,8 +19,10 @@ jobs:
         node-version: 16.x
         cache: 'npm'
 
-    - run: |
+    - name: build
+      run: |
         npm ci
+        npm run convert
         npm run build
 
 
