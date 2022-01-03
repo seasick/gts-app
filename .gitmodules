@@ -1,0 +1,4 @@
+[submodule "zamg-measurment-collector"]
+	path = data/zamg-measurment-collector
+	url = https://github.com/seasick/zamg-measurment-collector.git
+	branch = main

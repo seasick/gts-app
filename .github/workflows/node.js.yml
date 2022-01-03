@@ -1,0 +1,31 @@
+name: build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15,30 * * * *"
+
+jobs:
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+        cache: 'npm'
+
+    - run: |
+        npm ci
+        npm run build
+
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.7
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: build # The folder the action should deploy.
