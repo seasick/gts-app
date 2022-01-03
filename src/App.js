@@ -56,8 +56,6 @@ function App() {
     }
   });
 
-  console.log(station);
-
   return (
     <div className="App">
       <div>
