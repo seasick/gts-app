@@ -10,7 +10,7 @@ function App() {
   const [useWeights, setUseWeights] = useState(false);
 
   useEffect(() => {
-    fetch('/data/aggregated.json')
+    fetch('/gts-app/data/aggregated.json')
         .then((response) => response.json())
         .then((json) => {
           const tmp = [];
