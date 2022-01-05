@@ -23,8 +23,6 @@ function ResponsiveDrawer(props) {
     mode: 'gts'
   });
 
-  console.log(form);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
