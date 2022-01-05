@@ -2,7 +2,7 @@ import useData from "./useData";
 
 
 export default function useStations() {
-  const [data] = useData();
+  const [data, isLoading] = useData();
   const tmp = []; // Used to store already seen station ids
   let stations = [];
 
@@ -21,5 +21,5 @@ export default function useStations() {
 
   stations.sort((a, b) => a.label > b.label);
 
-  return stations;
+  return [stations, isLoading];
 }

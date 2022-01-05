@@ -13,7 +13,7 @@ export function calculateGstForStation(data, station) {
     }
   });
 
-  return values.reduce((a, b) => a + b, 0) * 100;
+  return values.reduce((a, b) => a + b, 0);
 }
 
 export function calculateWeightedGstForStation(data, station) {
@@ -33,7 +33,7 @@ export function calculateWeightedGstForStation(data, station) {
     // weight should be 0.5 for Janurary and 0.75 for February
     if (month === 1) {
       weight *= 0.5;
-    } else if (month === 1) {
+    } else if (month === 2) {
       weight *= 0.75;
     }
 
@@ -43,6 +43,6 @@ export function calculateWeightedGstForStation(data, station) {
     }
   });
 
-  return values.reduce((a, b) => a + b, 0) * 100;
+  return values.reduce((a, b) => a + b, 0);
 
 }
