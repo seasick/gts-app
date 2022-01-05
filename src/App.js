@@ -1,61 +1,28 @@
 import './App.css';
-import {useEffect, useState} from 'react';
+import useStations from './hooks/useStations';
+import useData from './hooks/useData';
+import {useState} from 'react';
+import {calculateGstForStation, calculateWeightedGstForStation} from './gst';
 
 
 function App() {
-  const [data, setData] = useState(null);
   const [station, setStation] = useState(11036);
-  const [stations, setStations] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [useWeights, setUseWeights] = useState(false);
+  const stations = useStations();
+  const [data, isLoading] = useData();
 
-  useEffect(() => {
-    fetch('/gts-app/data/aggregated.json')
-        .then((response) => response.json())
-        .then((json) => {
-          const tmp = [];
-          const tmpStations = json.reduce((prev, curr) => {
-            if (tmp.indexOf(curr.stationId) === -1) {
-              prev.push({
-                value: parseInt(curr.stationId),
-                label: curr.stationName,
-              });
-              tmp.push(curr.stationId);
-            }
-
-            return prev;
-          }, []);
-
-          tmpStations.sort((a, b) => a.label > b.label);
-
-          setData(json);
-          setStations(tmpStations);
-        });
-  }, []);
-
-  if (!data) {
+  if (isLoading) {
     return <div>Loading</div>;
   }
 
-  const values = [];
+  let gst;
 
-  // TODO Calculate the GST
-  data.forEach((row) => {
-    // Filter for station
-    if (row.stationId !== station) {
-      return;
-    }
-
-    // Should months be weighted?
-    if (useWeights) {
-      // TODO
-    }
-
-    // Only add positive values
-    if (row.meanTemperature >= 0) {
-      values.push(row.meanTemperature);
-    }
-  });
+  if (useWeights) {
+    gst = calculateWeightedGstForStation(data, station);
+  } else {
+    gst = calculateGstForStation(data, station);
+  }
 
   return (
     <div className="App">
@@ -73,7 +40,12 @@ function App() {
 
       <div>
         Grünlandtemperatursumme: <br />
-        {Math.round(values.reduce((a, b) => a + b, 0) * 100) / 100}
+        {Math.round(gst) / 100} <br />
+        Gewichtete Methode: <input
+          type="checkbox"
+          checked={useWeights}
+          onChange={(event) => setUseWeights(event.target.checked)}
+        />
       </div>
     </div>
   );
