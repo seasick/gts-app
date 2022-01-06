@@ -11,6 +11,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Form from './components/Form';
 import Gst from './components/Gst';
+import Chart from './components/Chart';
 
 
 const drawerWidth = 240;
@@ -100,6 +101,7 @@ function ResponsiveDrawer(props) {
       >
         <Toolbar />
           <Gst mode={form.mode} station={form.station} />
+          <Chart mode={form.mode} station={form.station} />
       </Box>
     </Box>
   );

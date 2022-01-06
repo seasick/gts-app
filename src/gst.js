@@ -1,4 +1,4 @@
-export function calculateGstForStation(data, station) {
+export function getGstValuesForStation(data, station) {
   const values = [];
 
   data.forEach((row) => {
@@ -9,14 +9,21 @@ export function calculateGstForStation(data, station) {
 
     // Only add positive values
     if (row.meanTemperature >= 0) {
-      values.push(row.meanTemperature);
+      values.push({label: row.date, value: row.meanTemperature});
     }
   });
 
-  return values.reduce((a, b) => a + b, 0);
+  return values;
 }
 
-export function calculateWeightedGstForStation(data, station) {
+
+export function calculateGstForStation(data, station) {
+  const values = getGstValuesForStation(data, station);
+
+  return values.reduce((prev, curr) => prev + curr.value, 0);
+}
+
+export function getWeightedGstValuesForStation(data, station) {
   const values = [];
 
   data.forEach((row) => {
@@ -39,10 +46,17 @@ export function calculateWeightedGstForStation(data, station) {
 
     // Only add positive values
     if (row.meanTemperature >= 0) {
-      values.push(row.meanTemperature * weight);
+      const value = row.meanTemperature * weight;
+
+      values.push({label: row.date, value: value});
     }
   });
 
-  return values.reduce((a, b) => a + b, 0);
+  return values;
+}
 
+export function calculateWeightedGstForStation(data, station) {
+  const values = getWeightedGstValuesForStation(data, station);
+
+  return values.reduce((prev, curr) => prev + curr.value, 0);
 }
