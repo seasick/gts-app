@@ -30,7 +30,10 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <Toolbar />
-      <Form station={form.station} mode={form.mode} onChange={setForm} />
+      <Form station={form.station} mode={form.mode} onChange={(data) => {
+        setForm(data);
+        setMobileOpen(false);
+      }} />
     </div>
   );
 
