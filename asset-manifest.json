@@ -1,15 +1,10 @@
 {
   "files": {
-    "main.css": "/gts-app/static/css/main.073c9b0a.css",
-    "main.js": "/gts-app/static/js/main.64917ad4.js",
-    "static/js/787.ac1b57cd.chunk.js": "/gts-app/static/js/787.ac1b57cd.chunk.js",
+    "main.js": "/gts-app/static/js/main.dc78b7eb.js",
     "index.html": "/gts-app/index.html",
-    "main.073c9b0a.css.map": "/gts-app/static/css/main.073c9b0a.css.map",
-    "main.64917ad4.js.map": "/gts-app/static/js/main.64917ad4.js.map",
-    "787.ac1b57cd.chunk.js.map": "/gts-app/static/js/787.ac1b57cd.chunk.js.map"
+    "main.dc78b7eb.js.map": "/gts-app/static/js/main.dc78b7eb.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.64917ad4.js"
+    "static/js/main.dc78b7eb.js"
   ]
 }
