@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -32,7 +31,6 @@ function ResponsiveDrawer(props) {
     <div>
       <Toolbar />
       <Form station={form.station} mode={form.mode} onChange={setForm} />
-      <Divider />
     </div>
   );
 
