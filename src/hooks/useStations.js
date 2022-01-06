@@ -9,7 +9,7 @@ export default function useStations() {
   stations = data.reduce((prev, curr) => {
     if (tmp.indexOf(curr.stationId) === -1) {
       prev.push({
-        value: parseInt(curr.stationId),
+        value: curr.stationId,
         label: curr.stationName,
       });
 

@@ -20,7 +20,7 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [form, setForm] = React.useState({
-    station: 11036, // Wien/Schwechat
+    station: 'meteoblue-zistersdorf',
     mode: 'gts'
   });
 

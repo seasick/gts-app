@@ -4,6 +4,7 @@ const Papa = require('papaparse');
 const path = require('path');
 
 
+const currentYear = new Date().getFullYear();
 const median = (values) => {
   if(values.length ===0) {
     throw new Error("No inputs");
@@ -22,7 +23,11 @@ const median = (values) => {
   return (values[half - 1] + values[half]) / 2.0;
 }
 
-(async () => {
+const capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.substring(1);
+};
+
+const aggregateZAMG = async() => {
   const dir = 'data/zamg-measurment-collector/data';
   const files = await readdir(dir);
   let data = [];
@@ -39,7 +44,7 @@ const median = (values) => {
       grouped[row.Station] = grouped[row.Station] || {
         date: files[i].substring(0, files[i].length - 4),
         stationName: row.Name,
-        stationId: parseInt(row.Station, 10),
+        stationId: `zamg-${row.Station}`,
         temperature: []
       };
 
@@ -60,6 +65,56 @@ const median = (values) => {
       };
     }));
   }
+
+  return data;
+};
+
+const aggregateMeteoblue = async() => {
+  const dir = 'data/meteoblue-simulation-collector/data';
+  const locations = await readdir(dir);
+  let data = [];
+
+  for (let i = 0; i < locations.length; ++i) {
+    const files = await readdir(`${dir}/${locations[i]}`);
+
+    for (let j = 0; j < files.length; ++j) {
+      if (parseInt(files[j].substring(0, 4)) !== currentYear) {
+        continue;
+      }
+
+      const json = JSON.parse(
+        await readFile(`${dir}/${locations[i]}/${files[j]}`)
+      );
+      const values = json.reduce((prev, curr) => {
+        prev.push(curr.value);
+        return prev;
+      }, []);
+
+      const sum = values.reduce((a, b) => a + b, 0);
+      const mean = (sum / values.length) || 0;
+      const medianValue = median(values);
+
+      data.push({
+        date: files[j].substring(0, 10),
+        stationName: capitalizeFirstLetter(locations[i]),
+        stationId: `meteoblue-${locations[i]}`,
+        meanTemperature: mean,
+        medianTemperature: medianValue,
+      });
+    }
+  }
+
+  return data;
+};
+
+(async () => {
+  // Add ZAMG data
+  console.log('Aggregate ZAMG data');
+  let data = await aggregateZAMG();
+
+  // Add meteoblue data
+  console.log('Aggregate Meteoblue data');
+  data = data.concat(await aggregateMeteoblue());
 
   await writeFile(
     path.resolve(__dirname, '../public/data/aggregated.json'),
