@@ -25,7 +25,7 @@ export default function Form({station, mode, onChange}) {
 
   return <div>
 
-    <FormControl fullWidth>
+    <FormControl sx={{m: 1, width: 220}}>
       <InputLabel id="station-label">Wetter Station</InputLabel>
       <Select
         labelId="station-label"
@@ -41,7 +41,7 @@ export default function Form({station, mode, onChange}) {
       </Select>
     </FormControl>
 
-    <FormControl fullWidth>
+    <FormControl sx={{m: 1, width: 220}}>
       <InputLabel id="mode-label">Modus</InputLabel>
       <Select
         labelId="mode-label"
