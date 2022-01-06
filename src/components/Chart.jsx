@@ -1,4 +1,4 @@
-import {CartesianGrid, Line, LineChart, Tooltip, XAxis} from "recharts";
+import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis} from "recharts";
 import {getGstValuesForStation, getWeightedGstValuesForStation} from "../gst";
 import useData from "../hooks/useData";
 
@@ -24,37 +24,37 @@ export default function Chart({mode, station}) {
     sum += value.value;
   });
 
-  return <LineChart
-    width={400}
-    height={400}
-    data={values}
-    margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-  >
-    <XAxis dataKey="label" />
-    <CartesianGrid stroke="#f5f5f5" />
-    <Tooltip formatter={(value, name) => {
-      let suffix = '';
+  return <ResponsiveContainer width="100%" height="80%">
+    <LineChart
+      data={values}
+      margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+    >
+      <XAxis dataKey="label" />
+      <CartesianGrid stroke="#f5f5f5" />
+      <Tooltip formatter={(value, name) => {
+        let suffix = '';
 
-      if (name === 'Temperatur') {
-        suffix = '° C';
-      }
+        if (name === 'Temperatur') {
+          suffix = '° C';
+        }
 
-      return Math.round(value * 100) / 100 + suffix
-    }} />
+        return Math.round(value * 100) / 100 + suffix
+      }} />
+      <Line
+        type="monotone"
+        dataKey="value"
+        name="Temperatur"
+        stroke="#8884d8"
+        yAxisId={0}
+        />
+
     <Line
       type="monotone"
-      dataKey="value"
-      name="Temperatur"
-      stroke="#8884d8"
+      dataKey="cumulative"
+      name="Grünlandtemperatursumme"
+      stroke="#82ca9d"
       yAxisId={0}
-      />
-
-   <Line
-    type="monotone"
-    dataKey="cumulative"
-    name="Grünlandtemperatursumme"
-    stroke="#82ca9d"
-    yAxisId={0}
-  />
-  </LineChart>;
+    />
+    </LineChart>
+  </ResponsiveContainer>;
 }
