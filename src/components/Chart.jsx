@@ -42,7 +42,7 @@ export default function Chart({mode, station}) {
       }} />
       <Line
         type="monotone"
-        dataKey="value"
+        dataKey="temperatur"
         name="Temperatur"
         stroke="#8884d8"
         yAxisId={0}
