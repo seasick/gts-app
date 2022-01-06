@@ -2,3 +2,6 @@
 	path = data/zamg-measurment-collector
 	url = https://github.com/seasick/zamg-measurment-collector.git
 	branch = main
+[submodule "data/meteoblue-simulation-collector"]
+	path = data/meteoblue-simulation-collector
+	url = https://github.com/seasick/meteoblue-simulation-collector.git
