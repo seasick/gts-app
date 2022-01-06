@@ -16,7 +16,14 @@ export default function Gst({mode, station}) {
   } else if (mode === 'weighted_gts') {
     value = calculateWeightedGstForStation(data, station);
   } else {
-    value = 'Unbekannte Methode';
+    value = false;
+  }
+
+  if (value === false) {
+    return <Alert severity="warning">
+      <AlertTitle>Warnung</AlertTitle>
+      Unbekannte Methode
+    </Alert>;
   }
 
   return <Alert severity="info">
