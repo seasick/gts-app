@@ -1,4 +1,4 @@
-import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {getGstValuesForStation, getWeightedGstValuesForStation} from "../gst";
 import useData from "../hooks/useData";
 import useForcast from "../hooks/useForcast";
@@ -61,6 +61,8 @@ export default function Chart({mode, station}) {
       <YAxis domain={[-5, parseInt(sum * 1.2)]} />
       <XAxis dataKey="label" />
       <CartesianGrid stroke="#f5f5f5" strokeDasharray="3 3" />
+      <ReferenceLine y={0} stroke="grey" strokeDasharray="4" />
+      <ReferenceLine y={200} stroke="green" strokeDasharray="4" />
       <Tooltip formatter={(value, name, props) => {
 
         if (props.payload.hideForcast && props.dataKey.indexOf('forcast') === 0) {
