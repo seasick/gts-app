@@ -20,6 +20,7 @@
   },
   "scripts": {
     "convert": "node bin/convert.js",
+    "forecast": "node bin/forecast.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
