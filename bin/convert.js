@@ -19,9 +19,9 @@ const openweathermap = require('../lib/openweathermap');
   console.log('Aggregate Meteoblue data');
   data = data.concat(await aggregateMeteoblue());
 
-  // Get forcast
-  let forcast = await openweathermap(openweatherApiKey, lat, lon);
-  forcast = forcast.daily.map((cast) => {
+  // Get forecast
+  let forecast = await openweathermap(openweatherApiKey, lat, lon);
+  forecast = forecast.daily.map((cast) => {
     const date = new Date(cast.dt * 1000);
 
     const year = date.getFullYear();
@@ -43,8 +43,8 @@ const openweathermap = require('../lib/openweathermap');
     JSON.stringify(data)
   );
   await writeFile(
-    path.resolve(__dirname, '../public/data/forcast.json'),
-    JSON.stringify(forcast)
+    path.resolve(__dirname, '../public/data/forecast.json'),
+    JSON.stringify(forecast)
   )
 
 })();

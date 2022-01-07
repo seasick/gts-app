@@ -1,14 +1,14 @@
 import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {getGstValuesForStation, getWeightedGstValuesForStation} from "../gst";
 import useData from "../hooks/useData";
-import useForcast from "../hooks/useForcast";
+import useForecast from "../hooks/useForecast";
 
 
 export default function Chart({mode, station}) {
   const [data, isLoading] = useData();
-  const [forcast] = useForcast();
+  const [forecast] = useForecast();
   let values = [];
-  let forcastValues = [];
+  let forecastValues = [];
   let valueLength;
 
   if (isLoading) {
@@ -17,10 +17,10 @@ export default function Chart({mode, station}) {
 
   if (mode === 'gts') {
     values = getGstValuesForStation(data, station);
-    forcastValues = getGstValuesForStation(forcast, station);
+    forecastValues = getGstValuesForStation(forecast, station);
   } else if (mode === 'weighted_gts') {
     values = getWeightedGstValuesForStation(data, station);
-    forcastValues = getWeightedGstValuesForStation(forcast, station);
+    forecastValues = getWeightedGstValuesForStation(forecast, station);
   }
 
   valueLength = values.length;
@@ -33,12 +33,12 @@ export default function Chart({mode, station}) {
   });
 
   // add prognosis
-  values = values.concat(forcastValues.map((f) => {
+  values = values.concat(forecastValues.map((f) => {
     const obj = {
       label: f.label,
-      forcastValue: f.value,
-      forcastTemperatur: f.temperatur,
-      forcastCumulative: f.value + sum,
+      forecastValue: f.value,
+      forecastTemperatur: f.temperatur,
+      forecastCumulative: f.value + sum,
     };
 
     sum += f.value;
@@ -48,9 +48,9 @@ export default function Chart({mode, station}) {
 
   if (valueLength && values.length > valueLength) {
     // Add first prognosis to last real data point
-    values[valueLength - 1].forcastCumulative = values[valueLength - 1].cumulative;
-    values[valueLength - 1].forcastTemperatur = values[valueLength - 1].temperatur;
-    values[valueLength - 1].hideForcast = true;
+    values[valueLength - 1].forecastCumulative = values[valueLength - 1].cumulative;
+    values[valueLength - 1].forecastTemperatur = values[valueLength - 1].temperatur;
+    values[valueLength - 1].hideForecast = true;
   }
 
   return <ResponsiveContainer width="100%" height="80%">
@@ -65,7 +65,7 @@ export default function Chart({mode, station}) {
       <ReferenceLine y={200} stroke="green" strokeDasharray="4" />
       <Tooltip formatter={(value, name, props) => {
 
-        if (props.payload.hideForcast && props.dataKey.indexOf('forcast') === 0) {
+        if (props.payload.hideForecast && props.dataKey.indexOf('forecast') === 0) {
           return [];
         }
 
@@ -91,14 +91,14 @@ export default function Chart({mode, station}) {
       />
       <Line
         type="monotone"
-        dataKey="forcastCumulative"
+        dataKey="forecastCumulative"
         name="Grünlandtemperatursumme Prognose"
         stroke="#82ca9d"
         strokeDasharray="8"
       />
       <Line
         type="monotone"
-        dataKey="forcastTemperatur"
+        dataKey="forecastTemperatur"
         name="Temperatur Prognose"
         stroke="#8884d8"
         strokeDasharray="8"

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 
-export default function useForcast() {
+export default function useForecast() {
   const[data, setData] = useState([]);
   const[isLoading, setIsLoading] = useState(true);
 
@@ -9,7 +9,7 @@ export default function useForcast() {
     const fetchData = async() => {
       setIsLoading(true);
 
-      const response = await fetch('/gts-app/data/forcast.json');
+      const response = await fetch('/gts-app/data/forecast.json');
       const json = await response.json();
 
       setData(json);
