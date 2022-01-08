@@ -3,6 +3,7 @@ const {writeFile} = require('fs/promises');
 const path = require('path');
 const aggregateZAMG = require('../lib/zamg');
 const aggregateMeteoblue = require('../lib/meteoblue');
+const aggregateLoxone = require('../lib/loxone');
 
 
 (async () => {
@@ -14,6 +15,10 @@ const aggregateMeteoblue = require('../lib/meteoblue');
   // Add meteoblue data
   console.log('Aggregate Meteoblue data');
   data = data.concat(await aggregateMeteoblue());
+
+  // Add Loxone data
+  console.log('Aggregate loxone data');
+  data = data.concat(await aggregateLoxone());
 
   await writeFile(
     path.resolve(__dirname, '../public/data/aggregated.json'),
