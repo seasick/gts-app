@@ -1,4 +1,4 @@
-import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
+import {FormControl, InputLabel, ListSubheader, MenuItem, Select} from '@mui/material';
 import useStations from '../hooks/useStations';
 
 
@@ -23,6 +23,16 @@ export default function Form({station, mode, onChange}) {
     });
   }
 
+  // group the stations by source
+  const sources = stations.reduce((prev, curr) => {
+    prev[curr.source] = prev[curr.source] || [];
+    prev[curr.source].push(curr);
+    return prev;
+  }, {});
+  const sourceKeys = Object.keys(sources);
+
+  sourceKeys.sort();
+
   return <div>
 
     <FormControl sx={{m: 1, width: 220}}>
@@ -34,9 +44,13 @@ export default function Form({station, mode, onChange}) {
         label="Wetter Station"
         onChange={handleStationChange}
       >
-        {stations.map((station) => {
-          return <MenuItem key={station.value} value={station.value}>{station.label}</MenuItem>;
-
+        {sourceKeys.map((source) => {
+          return [
+            <ListSubheader>{source}</ListSubheader>,
+            sources[source].map((station) => {
+              return <MenuItem key={station.value} value={station.value}>{station.label}</MenuItem>;
+            })
+          ]
         })}
       </Select>
     </FormControl>
