@@ -11,14 +11,15 @@ import Typography from '@mui/material/Typography';
 import Form from './components/Form';
 import Gst from './components/Gst';
 import Chart from './components/Chart';
+import useLocalStorage from './hooks/useLocalStorage';
 
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
-  const { window } = props;
+  const {window} = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [form, setForm] = React.useState({
+  const [form, setForm] = useLocalStorage('formdata', {
     station: 'meteoblue-zistersdorf',
     mode: 'gts'
   });
