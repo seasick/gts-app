@@ -17,8 +17,8 @@ const aggregateLoxone = require('../lib/loxone');
   data = data.concat(await aggregateMeteoblue());
 
   // Add Loxone data
-  console.log('Aggregate loxone data');
-  data = data.concat(await aggregateLoxone());
+  // console.log('Aggregate loxone data');
+  // data = data.concat(await aggregateLoxone());
 
   await writeFile(
     path.resolve(__dirname, '../public/data/aggregated.json'),
