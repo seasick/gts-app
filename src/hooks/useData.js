@@ -19,7 +19,7 @@ export default function useData(year) {
     };
 
     fetchData();
-  }, []);
+  }, [year]);
 
   return [data, isLoading];
 }
