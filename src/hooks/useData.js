@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 
-export default function useData() {
+export default function useData(year) {
   const[data, setData] = useState([]);
   const[isLoading, setIsLoading] = useState(true);
 
@@ -9,7 +9,9 @@ export default function useData() {
     const fetchData = async() => {
       setIsLoading(true);
 
-      const response = await fetch('/gts-app/data/aggregated.json');
+      const file = `aggregated-${year}.json`;
+      const path = `/gts-app/data/${file}`;
+      const response = await fetch(path);
       const json = await response.json();
 
       setData(json);

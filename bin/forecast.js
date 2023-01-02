@@ -2,7 +2,7 @@
 // This script gets forecast data from openweathermap
 const {writeFile} = require('fs/promises');
 const path = require('path');
-const openweathermap = require('../lib/openweathermap');
+const openweathermapForecast = require('../lib/openweathermap/forecast');
 
 
 (async () => {
@@ -13,7 +13,8 @@ const openweathermap = require('../lib/openweathermap');
   const stationId = process.argv[6];
 
   // Get forecast
-  let forecast = await openweathermap(openweatherApiKey, lat, lon);
+  let forecast = await openweathermapForecast(openweatherApiKey, lat, lon);
+
   forecast = forecast.daily.map((cast) => {
     const date = new Date(cast.dt * 1000);
 

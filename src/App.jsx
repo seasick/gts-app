@@ -20,7 +20,7 @@ function ResponsiveDrawer(props) {
   const {window} = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [form, setForm] = useLocalStorage('formdata', {
-    station: 'meteoblue-zistersdorf',
+    station: 'openweathermap-zistersdorf',
     mode: 'gts'
   });
 

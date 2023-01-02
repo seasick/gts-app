@@ -4,8 +4,10 @@ import useData from "../hooks/useData";
 import useForecast from "../hooks/useForecast";
 
 
+const now = new Date();
+
 export default function Chart({mode, station}) {
-  const [data, isLoading] = useData();
+  const [data, isLoading] = useData(now.getFullYear());
   const [forecast] = useForecast();
   let values = [];
   let forecastValues = [];

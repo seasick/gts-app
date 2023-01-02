@@ -1,8 +1,8 @@
 import useData from "./useData";
 
 
-export default function useStations() {
-  const [data, isLoading] = useData();
+export default function useStations(year) {
+  const [data, isLoading] = useData(year);
   const tmp = []; // Used to store already seen station ids
   let stations = [];
 

@@ -2,8 +2,10 @@ import {FormControl, InputLabel, ListSubheader, MenuItem, Select} from '@mui/mat
 import useStations from '../hooks/useStations';
 
 
+const now = new Date();
+
 export default function Form({station, mode, onChange}) {
-  const [stations, isLoading] = useStations();
+  const [stations, isLoading] = useStations(now.getFullYear());
 
   if (isLoading) {
     return <div>Loading</div>;
