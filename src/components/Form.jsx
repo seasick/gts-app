@@ -3,9 +3,10 @@ import useStations from '../hooks/useStations';
 
 
 const now = new Date();
+const years = Array.from({length: parseInt(now.getFullYear()) - 2022 + 1}, (e, i) => 2022 + i);
 
-export default function Form({station, mode, onChange}) {
-  const [stations, isLoading] = useStations(now.getFullYear());
+export default function Form({station, mode, year, onChange}) {
+  const [stations, isLoading] = useStations(year);
 
   if (isLoading) {
     return <div>Loading</div>;
@@ -15,6 +16,7 @@ export default function Form({station, mode, onChange}) {
     onChange({
       mode: mode,
       station: event.target.value,
+      year,
     });
   };
 
@@ -22,6 +24,15 @@ export default function Form({station, mode, onChange}) {
     onChange({
       mode: event.target.value,
       station,
+      year,
+    });
+  };
+
+  const handleYearChange = (event) => {
+    onChange({
+      mode,
+      station,
+      year: event.target.value,
     });
   }
 
@@ -68,6 +79,19 @@ export default function Form({station, mode, onChange}) {
       >
         <MenuItem value="gts">Grünlandtemperatursumme</MenuItem>
         <MenuItem value="weighted_gts">Gewichtete Grünlandtemperatursumme</MenuItem>
+      </Select>
+    </FormControl>
+
+    <FormControl sx={{m: 1, width: 220}}>
+      <InputLabel id="year-label">Jahr</InputLabel>
+      <Select
+        labelId="year-label"
+        id="year"
+        value={year}
+        label="Jahr"
+        onChange={handleYearChange}
+      >
+        {years.map((y) => <MenuItem key={y} value={y}>{y}</MenuItem>)}
       </Select>
     </FormControl>
   </div>;

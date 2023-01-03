@@ -4,11 +4,10 @@ import {calculateGstForStation, calculateWeightedGstForStation} from '../gst';
 import useStations from '../hooks/useStations';
 
 
-const now = new Date();
 
-export default function Gst({mode, station}) {
-  const [data, isLoading] = useData(now.getFullYear());
-  const [stations] = useStations(now.getFullYear());
+export default function Gst({mode, station, year}) {
+  const [data, isLoading] = useData(year);
+  const [stations] = useStations(year);
   let stationName;
   let value;
   let label;

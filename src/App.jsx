@@ -15,10 +15,12 @@ import useLocalStorage from './hooks/useLocalStorage';
 
 
 const drawerWidth = 240;
+const currentYear = new Date().getFullYear();
 
 function ResponsiveDrawer(props) {
   const {window} = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [year, setYear] = React.useState(currentYear);
   const [form, setForm] = useLocalStorage('formdata', {
     station: 'openweathermap-zistersdorf',
     mode: 'gts'
@@ -31,7 +33,8 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <Toolbar />
-      <Form station={form.station} mode={form.mode} onChange={(data) => {
+      <Form station={form.station} mode={form.mode} year={year} onChange={(data) => {
+        setYear(data.year);
         setForm(data);
         setMobileOpen(false);
       }} />
@@ -102,8 +105,8 @@ function ResponsiveDrawer(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-          <Gst mode={form.mode} station={form.station} />
-          <Chart mode={form.mode} station={form.station} />
+          <Gst mode={form.mode} station={form.station} year={year} />
+          <Chart mode={form.mode} station={form.station} year={year} />
       </Box>
     </Box>
   );
