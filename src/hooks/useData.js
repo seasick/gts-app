@@ -10,6 +10,10 @@ export default function useData(year) {
   const[isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (data[year]) {
+      return;
+    }
+
     // Cache[year] contains either a data object or a promise.
     if (cache[year]) {
 
@@ -51,7 +55,7 @@ export default function useData(year) {
     };
 
     cache[year] = fetchData();
-  }, [year]);
+  }, [year, data]);
 
   return [data[year] || [], isLoading];
 }
