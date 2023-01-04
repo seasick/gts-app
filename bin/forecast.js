@@ -15,6 +15,17 @@ const openweathermapForecast = require('../lib/openweathermap/forecast');
   // Get forecast
   let forecast = await openweathermapForecast(openweatherApiKey, lat, lon);
 
+  // If we have a invalid API key, we will just add an empty forecast into the file.
+  if (forecast.cod === 401) {
+    console.warn(forecast.message || 'Invalid API key');
+    console.warn('Empty array written to forecast.json');
+
+    return writeFile(
+      path.resolve(__dirname, '../public/data/forecast.json'),
+      JSON.stringify([])
+    )
+  }
+
   forecast = forecast.daily.map((cast) => {
     const date = new Date(cast.dt * 1000);
 
