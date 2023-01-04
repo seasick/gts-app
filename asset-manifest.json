@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/gts-app/static/js/main.9c07222a.js",
+    "main.js": "/gts-app/static/js/main.e71142ab.js",
     "index.html": "/gts-app/index.html",
-    "main.9c07222a.js.map": "/gts-app/static/js/main.9c07222a.js.map"
+    "main.e71142ab.js.map": "/gts-app/static/js/main.e71142ab.js.map"
   },
   "entrypoints": [
-    "static/js/main.9c07222a.js"
+    "static/js/main.e71142ab.js"
   ]
 }
